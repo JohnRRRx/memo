@@ -1,0 +1,54 @@
+Ruby　Dランクスキルチェック
+1/26 5問
+主に下記内容
+
+-------------------------------------------
+
+再来月の計算
+a = gets.to_i
+if a == 11
+puts 1
+elsif a == 12
+puts 2
+else
+puts a+2
+end
+
+caseで簡潔に
+a = gets.to_i
+puts case a
+     when 11 then 1
+     when 12 then 2
+     else a + 2
+     end
+
+-------------------------------------------
+
+文字列内に指定文字がある、指定文字が指定の順番と同じ？
+a = gets.chomp
+b = gets.chomp
+c = gets.to_i
+puts a[c-1] == b ? "Yes" : "No"
+
+-------------------------------------------
+
+だるま落とし
+a = gets.chomp.chars
+b = gets.to_i
+c = a.delete_at b-1
+puts a.join
+
+-------------------------------------------
+
+delete_at インデックス番号
+でもとの配列からその内容が削除できる
+
+24時間表記を12時間表記に
+a= gets.to_i
+puts a >= 24 ? a-24 : a
+
+-------------------------------------------
+
+小数点以下まで計算出してから、四捨五入
+a = gets.split.map(&:to_f)
+puts (a.sum/7).round(1)
