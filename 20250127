@@ -1,0 +1,96 @@
+Ruby　Dランクスキルチェック
+1/27 5問
+主に下記内容
+
+-------------------------------------------
+
+重複確認
+
+a = gets.chomp.chars
+if a.count(a[0])>1
+ puts "NG"
+elsif a.count(a[1])>1
+ puts "NG"
+elsif a.count(a[2])>1
+ puts "NG"
+elsif a.count(a[3])>1
+ puts "NG"
+else
+ puts "OK" 
+end
+
+簡潔に
+
+a = gets.chomp.chars
+puts a.uniq.size == a.size ? "OK" : "NG"
+
+# uniq　配列内重複した値を消す。(要素数は減る)
+元配列の要素数と比較して一致しない場合、重複があるという証拠
+
+-------------------------------------------
+
+配列から、複数回ずつ改行出力
+
+a = gets.split.map(&:to_i)
+b = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+c = 0
+# 配列 b のどこからデータを取り出すかを覚えておくために使用、最初は 0 からスタート
+
+a.each do |count|
+ puts b[c, count].join
+ c += count
+end
+
+# a.each do |count|
+配列 a の各要素を順番に取り出して count に代入count の値は、
+b から何文字分を取り出すかを決める数字。
+例: a = [3, 4, 3] の場合、
+ループは次のように動き
+最初の count = 3
+次の count = 4
+最後の count = 3
+
+# c += count
+変数 c を更新し、次に取り出す開始位置を変更。
+
+-------------------------------------------
+
+小数点?位まで指定、それ以下切り捨て
+a = 3.141592653589793
+b = gets.to_i
+puts a.floor(b)
+
+-------------------------------------------
+
+4~5桁ある数値、全桁同じか？の確認
+
+a = gets.chomp.chars
+
+if a[0]==a[1] && a[0]==a[2] && a[0]==a[3] && a[0]==a[4]
+ puts a.join
+elsif a[0]==a[1] && a[0]==a[2] && a[0]==a[3]
+ puts a.join
+else
+ puts "No"
+end
+
+簡潔に
+学んだuniq使ったら
+
+a = gets.chomp.chars
+puts a.uniq.size == 1 ? a.join : "No"
+
+-------------------------------------------
+
+_と-、どっちかに統一する
+
+a = gets.chomp
+if a.count("_") > a.count("-")
+ puts a.gsub("-","_")
+elsif a.count("_") == a.count("-")
+ puts a.gsub("-","_")
+else
+ puts a.gsub("_","-")
+end
+
+条件をちゃんと読んでから書こう！
