@@ -1,0 +1,64 @@
+2/2
+スキルチェック
+Cランク　2問
+
+主に下記内容
+
+-------------------------------------------
+
+ポイント払い
+
+a = gets.split.map(&:to_i)
+b = a[1].times.map{gets.to_i}
+zan = a[0]
+point = 0
+
+b.each do |unc|
+ if point >= unc
+  point -= unc
+ else
+  zan -= unc
+  point += unc*10/100
+ end
+  puts [zan, point].join(" ")
+end
+
+eachの使い方復習、point加算の記述場所によって結果がかなり変わる
+
+-------------------------------------------
+
+しりとり判定
+a = gets.to_i
+b = a.times.map { gets.chomp }
+
+b.each_cons(2) do |prev, curr|
+  if prev[-1] != curr[0]
+    puts "#{prev[-1]} #{curr[0]}"
+    return
+  end
+end
+
+puts "Yes"
+
+
+
+each_cons
+eachの複数版
+後ろの||内で取りたい数の名前を入れたらOK
+# >> 1, 2
+# >> 2, 3
+# >> 3, 4
+など
+
+似たような機能
+each_slice
+複数の要素を配列から順番に取り出す
+# >> 1, 2, 3
+# >> 4, 5, 6 
+# >> 7, 8
+など
+
+-------------------------------------------
+
+1問だけで数時間かかったが、新しいメソッド覚えた
+引き続き頑張る
