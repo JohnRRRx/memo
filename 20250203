@@ -1,0 +1,32 @@
+2/3
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+FizzBuzz類似問
+
+a = gets.split.map(&:to_i)
+b = a[1].times.map{gets.chomp.split}
+s = 1
+s.upto(a[0]) do
+  output = []
+  b.each do |num, word|
+    output << word if s % num.to_i == 0
+  end
+  puts output.empty? ? s : output.join(" ")
+  s += 1
+end
+
+uptoが実行される度、
+outputという配列の中に、
+その回の値が出る
+そして次の処理が実行される度、
+またoutput = []で初期化される
+
+b.each do |num, word|
+取得した数値と文字の配列を分ける
+
+理解するのにめっちゃ時間かかった
+途中の検証方法は合ってるが、その次の検証は分からなかった
