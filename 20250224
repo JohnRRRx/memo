@@ -1,0 +1,48 @@
+2/24
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+CD時間メロン食べる
+su = gets.to_i
+neta = su.times.map{gets.chomp}
+cd = 10
+last = -cd-1
+tabeta = []
+
+neta.each_with_index do |x,idx|
+ if x == "melon" && idx-last > cd
+     tabeta << idx + 1
+     last = idx
+ end
+
+end
+ puts tabeta.size
+
+-------------------------------------------
+
+苦戦してた、、
+取得行けたが、条件がむずかった。
+cd = 10
+#クールダウン時間が10
+last = -cd-1
+#lastは初回目条件の帳尻合わせ用で-11で設定
+idx-last > cd
+#初回のidx==0 、last==-11、cd==10、結果は11>10なのでifは成立。
+tabeta << idx + 1
+#これで初回目のidx==1でtabeta配列に入れる。
+last = idx
+一回melon出たら、クールダウン必要なので、lastにその時のidxで上書きする。
+
+6回目 (idx = 5, ネタ = "melon")
+last = 0
+#前回食べたmelonのidx番号は0番
+idx - last = 5 - 0 = 5 → 5 ≤ 10 #前回からまだクールダウン時間中なのでパス
+
+14回目 (idx = 13, ネタ = "melon")
+last = 0
+idx - last = 13 - 0 = 13 → 13 > 10
+#クールダウン時間過ぎたので取れる
+
+最後はtabetaのsize出力。
