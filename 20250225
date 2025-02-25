@@ -1,0 +1,28 @@
+2/25
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+キーワード入ったらそのまま出力する、
+0だったらNoneを出力する
+
+a = gets.to_i
+b = gets.chomp
+c = a.times.map{gets.chomp}
+d = 0
+
+c.each do |x|
+ if x.include?(b)
+  puts x
+  d += 1
+ end
+end
+
+if d == 0
+  puts "None" 
+end
+
+前も出たようなパターン
+includeでキーワードの文字列を絞る。
+カウント数もつけて、当てはまらない場合、Noneを出力。
