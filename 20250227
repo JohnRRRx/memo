@@ -1,0 +1,57 @@
+2/27
+スキルチェック
+Cランク　3問
+
+-------------------------------------------
+
+部品発注ミス
+してないものの種類を計算
+a = gets.to_i
+b = a.times.map{gets.to_i}
+c = (1..a).to_a
+
+puts (c-b).size
+
+
+配列同士そのまま引き算、
+足りない部分が出てくる。
+そこからsizeで種類を計算。
+
+-------------------------------------------
+
+滞在時間計算
+days = gets.to_i
+sch = days.times.map{gets.split}
+ea = []
+sch.each do |x,y,z|
+   ea << x.to_i+y.to_i+(24-z.to_i)
+end
+
+puts ea.min
+puts ea.max
+
+問題なかったが、to_iの部分が長いので、
+days.times.map{gets.split}を
+days.times.map{gets.split.map(&:to_i)}
+にしたら、x、y、zにto_iを付けるのをまとめられる。
+
+-------------------------------------------
+
+投票結果カウント
+
+a = gets.to_i
+b = a.times.map{gets.chomp}
+c = b.uniq
+re = []
+
+c.each do |x|
+  re << [b.count(x),x]
+end
+
+puts re.max.pop
+
+eachで[回数,苗字]の形式で新しく配列をreに入れていいく。
+maxで最大値を出す。
+[回数,苗字]の形式なので、
+popメソッドで、
+末尾要素の苗字を配列から取り出し、出力する。
