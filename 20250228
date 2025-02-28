@@ -1,0 +1,39 @@
+2/28
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+競合する予定を分ける
+
+a = gets.to_i
+al = a.times.map{gets.to_i}
+b = gets.to_i
+bl = b.times.map{gets.to_i}
+days = (1..31).to_a
+l = []
+
+
+days.each do |x|
+ if al.include?(x) && bl.include?(x) && l.last == nil
+    l<<"A"
+    puts "A"
+ elsif al.include?(x) && bl.include?(x) && l.last == "A"
+    l<<"B"
+    puts "B"
+ elsif al.include?(x) && bl.include?(x) && l.last == "B"
+    l<<"A"
+    puts "A"
+ elsif al.include?(x)
+    puts "A"
+ elsif bl.include?(x)
+    puts "B"
+ else
+    puts "x"
+ end
+end
+
+-------------------------------------------
+
+考え自体が合ってるが、includeの使い方に自信なさすぎ。
+エラー出たら直すだけなので、試すことが大事。
