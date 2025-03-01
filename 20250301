@@ -1,0 +1,34 @@
+3/1
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+合計時間計算
+
+
+n = gets.to_i
+taizai = 0
+n.times do
+ st,et = gets.split
+  sh,sm = st.split(":").map(&:to_i)
+  eh,em = et.split(":").map(&:to_i)
+  
+  stotal = sh*60+sm
+  etotal = eh*60+em
+  
+  taizai += (etotal-stotal)
+end
+
+total_hour = taizai / 60
+total_min = taizai % 60
+
+puts "#{total_hour} #{total_min}"
+
+-------------------------------------------
+
+入力を h:m 形式で受け取る。
+h * 60 + m で「分単位」に変換
+退室時間 - 入室時間 で滞在時間を計算
+すべての滞在時間を合計、
+時間と分に変換して出力！
