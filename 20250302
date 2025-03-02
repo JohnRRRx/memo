@@ -1,0 +1,35 @@
+3/2
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+アルファベット変換
+与えられた大小文字のアルファベットに沿って、2つ目の単語を変換していく。
+
+a = gets.chomp
+b = gets.chomp
+c = []
+
+b.each_char do |x|
+ if a.include?(x)
+   c<<x
+ elsif a.include?(x.downcase)
+   c<<x.downcase
+ elsif a.include?(x.upcase)
+   c<<x.upcase
+ end
+end
+
+puts c.join
+
+-------------------------------------------
+
+eachは文字列に使えないので、each_charsを使用。
+条件式は
+大小文字そのまま一致する場合、
+小文字にしてから一致する場合、
+大文字にしてから一致する場合、
+空配列に入れる。
+each_charsなので、文字列に改行が入るため、
+最後はjoinで1行に戻す。
