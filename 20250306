@@ -1,0 +1,23 @@
+3/6
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+people = gets.to_i
+# 人数取得
+point = people.times.map{gets.to_i}
+# 人数分の点数取得
+point.each do |x|
+#一人ずつの点数判別していく
+　rank = point.count{|r| r > x} +1 
+#countで順位付ける
+#countで{}ブロック内trueかfalseを判定
+#trueの場合のみcountし、最後に{}ブロック右側の+1も追加
+#つまり、count(trueの回数)+1
+　puts rank
+#
+end
+
+
+内容は比較的に読みやすいが、実際あまり効率よくないらしい、、
