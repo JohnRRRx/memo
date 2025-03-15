@@ -1,0 +1,32 @@
+3/15
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+1の桁で勝負
+
+・2人がテストの点数で勝負
+・点数は 2〜3桁 の整数
+・各桁の合計値の1の桁が大きいほうが勝ち
+・勝者か、引き分けを出力
+
+score = gets.split.map(&:to_i)
+# 2人の点数を取得 (例: "93 81" → [93, 81])
+
+bo = score[0].digits.sum.digits.first
+# 1人目 (Bob) の点数を各桁の合計後、その1の桁を取得
+# 【digits の動作】数値を 1の位から 配列に入れる
+# 例: 93.digits → [3, 9]（1の位が先頭） → sum: 12 → 12.digits → [2, 1] → first: 2
+
+al = score[1].digits.sum.digits.first
+# 2人目 (Alice) も同様に処理
+
+if bo > al
+    puts "Bob"   # Bob の1の桁が大きい場合勝ち
+elsif al > bo
+    puts "Alice" # Alice の1の桁が大きい場合勝ち
+else
+    puts "Draw"  # 引き分け
+end
