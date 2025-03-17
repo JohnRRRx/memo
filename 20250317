@@ -1,0 +1,35 @@
+3/17
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+プログラムとコマンドに沿って出力
+
+・SET i v : 変数 i に値 v を代入する (i = 1, 2)
+・ADD v :「変数 1 の値 + v」を計算し、計算結果を変数 2 に代入する
+・SUB v :「変数 1 の値 - v」を計算し、計算結果を変数 2 に代入する
+例
+SET 1 40
+ADD 80
+SUB 90
+
+
+am = gets.to_i                         # コマンドの数を取得
+cmd = am.times.map{gets.chomp.split}   # コマンドの数の分、詳しいコマンド内容を取得
+h1 = 0                                 # 変数1の初期値を0に設定
+h2 = 0                                 # 変数2の初期値を0に設定
+
+cmd.each do |w,t,v|                    # それぞれのコマンドをwork,target,valueに分けて処理していく
+  if w == "SET" && t.to_i == 1         # SETと1の場合、対象は変数1
+    h1 = v.to_i                        # valueを変数1に代入
+  elsif w == "SET" && t.to_i == 2      # SETと2の場合、対象は変数2
+    h2 = v.to_i                        # valueを変数2に代入
+  elsif w == "ADD"                     # ADDの場合2つの値しかないため、処理対象をworkとtargetだけに変更
+    h2 = h1 + t.to_i                   # 変数1+targetを変数2に代入
+  elsif w == "SUB"                     # SUBも同じ2つの値しかないため、処理対象をworkとtargetだけに変更
+    h2 = h1 - t.to_i                   # 変数1-targetを変数2に代入
+  end
+end
+
+puts [h1,h2].join(" ")                 # 指定のフォームで変数1と変数2を出力
