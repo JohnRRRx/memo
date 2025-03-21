@@ -1,0 +1,62 @@
+3/21
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+⚪︎⚪モンみたいな進化
+所持モンスターのパラメータで進化可能な進化先を出力
+
+・攻撃力(atk)、防御力(def)、素早さ(agi)の3つの基準に満たすと進化可能
+・まだ進化できない場合、no evolutionと出力
+
+-------------------------------------------
+
+at,de,ag = gets.split.map(&:to_i)                  # 現在のパラメータ(atk,def,agi)取得
+v = gets.to_i                                　　　 # variation 進化先の数を取得
+d = v.times.map{gets.split.map(&:to_s)}            # detail それぞれの進化条件を取得 (ここでは[進化先名, atk_min, atk_max, def_min, ...]の形で取得)
+nd = []                                            # newDetail　進化条件を詳しく分ける用の空配列
+
+d.each do |n|                                      # 進化条件を処理していく
+ st = n.drop(1).map(&:to_i)                        # status 必要なステータスを数値化
+  nd << [n[0],st]                                  # newDetai 進化条件を[進化先名,[atk_min, atk_max, def_min, ...]]の形に変更
+end
+
+rt = []                                            # 進化可能の進化先を入れる空配列
+
+nd.each do |x,y|                                   # 進化条件を処理していく(xは進化先名,yはステータス基準値の配列)
+atmin = y[0]                                       # atminが最小攻撃力など、各ステータスを読みやすくするために再定義
+atmax = y[1]                                      
+demin = y[2]                                      
+demax = y[3]                                      
+agmin = y[4]                                      
+agmax = y[5]                                      
+  if at >= atmin && at <= atmax &&                 # それぞれのステータス条件に全部満たした場合、
+      de >= demin && de <= demax &&                
+      ag >= agmin && ag <= agmax                    
+    rt << x                                        #  進化先名をrt空配列に入れる
+  end
+end
+
+puts rt.size == 0 ? "no evolution" : rt            # 進化先あれば出力、なければno evolutionを出力
+
+-------------------------------------------
+
+↓こんなふうにもっと簡潔にできる
+
+attack, defense, agility = gets.split.map(&:to_i)         # 現在のモンスターのステータスを取得
+evolution_count = gets.to_i                   　　　　     # 進化先のモンスター数
+evolutions = []                                　　　　    # 進化可能なモンスター一覧
+
+evolution_count.times do　　　　　　　　　　　　　　　　　　　　# 進化先のデータを処理
+  data = gets.split
+  name = data[0]
+  min_atk, max_atk, min_def, max_def, min_agi, max_agi = data[1..6].map(&:to_i)
+
+  if (min_atk..max_atk).include?(attack) &&　　　　 　　　　# 進化条件を満たすかチェック
+     (min_def..max_def).include?(defense) &&
+     (min_agi..max_agi).include?(agility)
+    evolutions << name
+  end
+end
+
+puts evolutions.empty? ? "no evolution" : evolutions　　　# 進化可能なモンスターがいる場合は出力、いなければ "no evolution"
