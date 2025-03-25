@@ -1,0 +1,58 @@
+3/25
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+合格者の判定
+
+・全科目の合計得点が 350 点以上
+・理系受験者の場合、(数学、理科) の合計得点が 160 点以上
+・文系受験者の場合、(国語、地理歴史) の合計得点が 160 点以上
+・受験者の各科目点数が入力されるので、何人通過できるかを出力
+・1 行目は受験者人数
+・その後の科目順は、英語、数学、理科、国語、地理歴史
+・文系は "l" 、理系は "s"
+
+-------------------------------------------
+
+n = gets.to_i　　　　　　　　　　　　　　　　  　　　　　　 # 人数取得
+score = n.times.map{gets.chomp.split}　　  　　　　 　 # それぞれの各科目の得点取得
+clear = 0　　  　　　　　　                   　　　    # 合格人数のカウントを0から
+
+score.each do |g,e,m,s,l,h|　　  　　　         　　   # 得点をgroup、english、math、science、language、historyで処理していく
+    sum = [e,m,s,l,h].map(&:to_i).sum              　# 全科目得点合計を定義
+    rikei = [m,s].map(&:to_i).sum                  　# 理系科目得点合計を定義
+    bunkei = [l,h].map(&:to_i).sum　　  　　　　　　   # 文系科目得点合計を定義
+  if g == "l" && sum >= 350 && bunkei >= 160 　　　　 # 文系で、全科目合計得点が350点以上、文系科目得点合計が160点以上の場合
+    clear += 1　　  　　　　　　  　　　　　　  　　　　　 # 合格と認定
+  elsif g == "s" && sum >= 350 && rikei >= 160　　   # 理系で、全科目合計得点が350点以上、文系科目得点合計が160点以上の場合
+    clear += 1　　  　　　　　　                       # 合格と認定
+  end
+end
+
+puts clear　　  　　　　　　                       　　 # 合格者数を出力
+
+-------------------------------------------
+
+もっと簡潔に
+
+n = gets.to_i
+score = n.times.map {gets.chomp.split}
+clear = 0
+
+score.each do |data|
+  g = data[0]                                                                   # 文理区分
+  e, m, s, l, h = data[1..5].map(&:to_i)                                        # 得点を数値に変換
+
+  sum = e + m + s + l + h
+  rikei = m + s
+  bunkei = l + h
+
+  if sum >= 350 && ((g == "l" && bunkei >= 160) || (g == "s" && rikei >= 160))  # 合計得点を共同基準にし、プラス文系理系どっちかの得点合計を判定
+    clear += 1
+  end
+end
+
+puts clear
