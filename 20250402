@@ -1,0 +1,36 @@
+4/1
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+速度違反の判定
+
+・判定位置の数が複数ある
+・時速制限基準は1つのみ
+・判定位置と次の判定位置までの平均速度が制限を超えた場合YESと出力、なければNO
+
+-------------------------------------------
+
+spots, limit = gets.split.map(&:to_i)                     # 判定位置の数、時速制限を取得
+hr_speed = spots.times.map{gets.split.map(&:to_i)}        # 判定位置の数の分、判定対象の時間と速度を取得
+check = []                                                # 最終判定用の空配列                                    
+
+hr_speed.each_cons(2) do |x|                              # 判定対象の時間と速度のセットで、前者と後者に分けて処理していく            
+    be_hr = x[0][0]                                       # 内容を読みやすく定義  
+    af_hr = x[1][0]                                                              
+    dif_hr = af_hr-be_hr                                          
+    be_speed = x[0][1]                                          
+    af_speed = x[1][1]                                                              
+    dif_speed = af_speed-be_speed                                                              
+    before = x[0]                                                              
+    after = x[1]                                                                                                        
+  if dif_speed / dif_hr > limit                           # 前者と後者の速度差/時間差が制限を超えた場合                                                          
+    check << "YES"                                        # YESをcheck配列に入れる                      
+  else
+    check << "NO"                                         # なければNOをcheck配列に入れる                                      
+  end
+end
+
+puts check.include?("YES") ? "YES" : "NO"                 # 一度速度違反でもあればYES、そうでなければNOを出力                                                     
