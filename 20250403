@@ -1,0 +1,61 @@
+4/3
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+果物セットの検品
+
+・中身の種類が与えられる　(例えば、🍏、🍒、🫐、の3種類)
+・1セット内の合計果物数が与えられる　(例えば、🍏🍏、🍒、🫐、計4つ)
+・標準セット　と　検品対象のセット　が　与えられる
+・果物を1つずつ検品、順番は前後するが、各種類の個数が揃えば問題ない。
+・出荷可能な場合YES、出荷不可な場合NO
+
+-------------------------------------------
+
+kinds, amounts = gets.split.map(&:to_i)                  # 種類数、1セット内果物の合計数を取得
+rule = amounts.times.map{gets.split.map(&:to_i)}         # 標準セットの内容を取得
+try = amounts.times.map{gets.split.map(&:to_i)}          # 検品対象の内容を取得
+parts = rule.uniq                                        # 標準セットの種類を絞る
+units = try.uniq                                         # 検品対象の種類を絞る
+set = []                                                 # 標準セットの内訳
+set2 = []                                                # 検品対象の内訳
+result = []                                              # 検品結果
+
+parts.each do |x|                                        # 標準セットの[種類,個数]を集計
+  set << [x, rule.count(x)]                              # 内訳をset配列に入れる
+end
+
+units.each do |x|                                        # 検品対象の[種類,個数]を集計
+  set2 << [x, try.count(x)]                              # 内訳をset2配列に入れる
+end
+
+set.each do |n,a|                                        # 標準セットの内訳を基準に検品していく
+  set2.each do |n2,a2|                                   # 検品対象の内訳を確認していく
+    if n2 == n && a2 >= a                                # 同じ種類で標準セットと同じ数量以上あれば
+      result << "OK"                                     # 検品結果に集計
+    end
+  end
+end
+
+
+puts result.count("OK") == parts.size ? "Yes" : "No"     # 標準セットの数と検品結果のOKの数が同じであれば、出荷基準に満たすYesと、そうでない場合Noと出力
+
+-------------------------------------------
+
+Hashでやった方が簡潔
+
+kinds, amounts = gets.split.map(&:to_i)  # 種類数、果物の合計数を取得
+rule = amounts.times.map { gets.to_i }   # 標準セットの内容を取得
+try = amounts.times.map { gets.to_i }    # 検品対象の内容を取得
+
+
+standard_counts = rule.tally             # 各果物の個数をカウント
+try_counts = try.tally
+
+# 標準セットの各果物が、検品対象のセットに必要な個数以上あるか確認
+result = standard_counts.all? { |fruit, count| try_counts[fruit].to_i >= count }
+
+puts result ? "Yes" : "No"
