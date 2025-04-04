@@ -1,0 +1,38 @@
+4/4
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+うさぎの王様に献上するニンジンの検品
+
+・ニンジンの数、糖分、許容範囲の誤差、が与えられる
+・ニンジンごとに、重さと糖分、が与えられる
+・糖分の誤差が許容範囲で、一番重いニンジンを一本のみ献上する
+・ニンジンの重さが同じの場合、検品順番で一番若い番号を出力
+
+-------------------------------------------
+
+amount, sugar, range = gets.split.map(&:to_i)                    # ニンジンの数、糖度、誤差範囲を取得
+carrots = amount.times.map{gets.split.map(&:to_i)}               # ニンジンの数の分、重さと糖度を取得
+check = []                                                       # 糖度確認済みのニンジンを記録
+number = 0                                                       # 検品番号
+mass = []                                                        # 重さを記録
+carrots.each do |m,s|                                            # ニンジンを一本ずつ処理していく
+  number += 1                                                    # 検品番号1番から始まる
+  if s >= (sugar-range) && s <= (sugar+range)                    # 糖度が誤差の許容範囲内の場合
+    check << [number,m]                                          # [検品番号,重さ]でcheck配列に記録
+    mass << m                                                    # 重さはmass配列に記録
+  end
+end
+
+smallest_number = []                                             # 検品番号を記録
+
+check.each do |n,m|                                              # [検品番号,重さ]のセットで、後者の重さを確認していく
+  if m == mass.max                                               # 最大重さと等しい場合、
+    smallest_number << n                                         # 検品番号を記録
+  end
+end
+
+puts smallest_number.empty? ? "not found" : smallest_number.min  # 検品番号に記録がない場合、献上できるニンジンがないのでnot foundと、そうでない場合、最小検品番号を出力
