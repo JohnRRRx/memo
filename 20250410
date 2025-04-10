@@ -1,0 +1,65 @@
+4/10
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+ボタンを順番に押す
+
+・ボタンを複数個ある
+・番号順に押していくルール　(例：5つボタンがある場合、1,2,3,4,5の順番で押していくことが正解)
+・ボタンを押した回数が与えられる
+・押した記録が与えられる
+・GameOver制限があり、達した場合ゲームが終了し、-1を出力
+・記録を確認し、ミス回数以下で順番に沿って押し終えた場合、正解数の分1000ポイントもらえる。ポイントを出力。
+
+-------------------------------------------
+
+buttons, limit= gets.split.map(&:to_i)                 # ボタン数、GameOver制限を取得
+push = gets.to_i                                       # ボタンを押した回数を取得
+logs = gets.split.map(&:to_i)                          # ボタンを押した記録を取得
+turn = 0                                               # 回数を記録
+correct = 0                                            # 正解を記録
+gameover = 0                                           # ミス数を記録
+
+logs.each do |t|                                       # ボタンを押した記録を確認しいてく
+  turn += 1                                            # ボタンの順番をカウント
+  if gameover==limit                                   # GameOver制限に達したら
+    break                                              # 処理終了
+  elsif turn <= buttons && turn == t                   # 順番通りに押下時　(押した回数がボタン数以下で、回数はボタン番号と同じ場合)
+    correct += 1                          
+  elsif turn % buttons == 0 && buttons == t            # 最大番号のボタン押下時　(押した回数がボタン数の倍数で、ボタン数が押したボタン番号と同じ場合)
+    correct += 1                              
+  elsif turn % buttons == t                            # 循環順の正しい押下時　(押した回数をボタン数で割った余りが、押したボタン番号と同じ場合)
+    correct += 1                        
+  else                                            
+    gameover += 1
+  end
+end
+
+puts gameover < limit ? correct*1000 : "-1"            # gameoverの制限に達した場合-1を出力、そうでない場合正解数x1000のポイント合計を出力
+
+-------------------------------------------
+
+もっと簡潔にできる(主にif文内の修正)
+
+buttons, limit = gets.split.map(&:to_i)
+push = gets.to_i
+logs = gets.split.map(&:to_i)
+
+turn = 0
+correct = 0
+errors = 0
+
+logs.each do |button|
+  turn = (turn % buttons) + 1               # 次に押すべきボタンを計算
+  if button == turn
+    correct += 1
+  else
+    errors += 1
+    break if errors == limit                # ゲームオーバー条件
+  end
+end
+
+puts errors < limit ? correct * 1000 : "-1"
