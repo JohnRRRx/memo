@@ -1,0 +1,58 @@
+4/11
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+・4桁の数値が与えられる
+・数値の数が与えられる
+・それぞれの桁を合計
+・各桁合計を下記ルールで判定
+  - 偶数の場合、0になる
+  - 奇数の場合、1になる
+・4桁が足りない場合、大きい位から0で埋める
+
+-------------------------------------------
+
+amounts = gets.to_i                                 # 数値の数を取得
+nishinsu = amounts.times.map{gets.chomp.chars}      # 数の分、数値を取得
+
+thousands = 0                                       # 各桁を記録
+hundreds = 0                        　
+tens = 0                                     　
+ones = 0                                　
+
+nishinsu.each do |x|                                # 数値を処理していく
+  thousands += x[0].to_i                            # 各桁を集計していく
+  hundreds += x[1].to_i                        　
+  tens += x[2].to_i                             　
+  ones += x[3].to_i                          　
+end
+
+result = [thousands, hundreds, tens, ones].to_a     # 集計結果を配列化
+output = []                                         # 最終出力内容を記録
+
+result.each do |x|                                  # 集計結果で各桁を判別していく
+  if x % 2 == 0                                     # 偶数の場合
+    x = 0                                           # 0になる
+    output << x                                     # 最終出力内容に記録
+  else
+    x = 1                                           # 奇数の場合1になる
+    output << x                                     # 最終出力内容に記録
+  end
+end
+
+puts output.join                                    # 最終出力
+
+-------------------------------------------
+
+めっちゃ簡潔にできる
+
+amounts = gets.to_i
+nishinsu = amounts.times.map { gets.chomp.chars.map(&:to_i) }
+
+# 各桁の合計を計算して偶数か奇数かを判定
+result = nishinsu.transpose.map { |digits| digits.sum % 2 }
+
+puts result.join
