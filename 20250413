@@ -1,0 +1,32 @@
+4/13
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+要素の配置確認
+
+
+・花の順番が目標と同じ種類の並び替えられるかを、YesかNoで出力 (例: 🌷🌷🪻🪻🪻 は右のようになれるか 🌷🪻🌷🪻🪻 )
+・並び替え方は、一番後ろの要素を一番前に移動するしかできない (例: 🌷🌷🪻 → 🪻🌷🌷 → 🌷🪻🌷 )
+・要素数、現在の順番、目標の順番が与えられる
+
+-------------------------------------------
+
+amount = gets.to_i                                   # 文字数を取得
+wreath1 = gets.chomp.chars                           # 目標の順番を取得
+wreath2 = gets.chomp.chars                           # 現在の順番を取得
+result = []                                          # 移動結果を記録
+wreath2.each_with_index do |x, idx|                  # 現在の順番を変えていく
+  if wreath1 == wreath2                              # 目標の順番と同じの場合
+    result <<  "Yes"                                 # Yesと結果に記録
+    break
+  else
+    last_item = wreath2.pop                          # 現在配列内の最後の要素を取り出す
+    wreath2.prepend(last_item)                       # 現在配列の先頭に入れる
+    result << "No"                                   # 配置が一致できないためNoと記録
+  end
+end
+
+puts result.include?("Yes") ? "Yes":"No"             # Yesが記録入ったら同じ配置に変更できるYesと、そうでない場合Noと出力
