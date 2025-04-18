@@ -1,0 +1,33 @@
+4/18
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+完全数かどうか判定
+
+・数値が与えられる
+・完全数(自身を除いた約数合計 = 自身)
+・ほぼ完全数(自身 - 自身を除いた約数合計 = 1)
+・完全数(perfect)、ほぼ完全数(nearly)、どちらでもない(neither)、どれに該当するかを判定して結果を出力
+
+-------------------------------------------
+
+amount = gets.to_i                                                # 数値の数を取得
+number = amount.times.map{gets.to_i}                              # 数の分、数値を取得
+
+number.each do |n|                                                # それぞれの数値を判定していく
+  result = []                                                     # 約数を入れる
+  1.upto(n) { |i| result << i if n % i == 0 }                     # 1~自身までの数字から、約数を探す
+  result.pop                                                      # 数値自分を除外
+  divisors_sum = result.sum                                       # 約数を合
+
+  if divisors_sum == n                                            # 自身を除いた約数合計 = 自身の場合
+    puts "perfect"
+  elsif n - divisors_sum == 1                                     # 自身 - 自身を除いた約数合計 = 1 の場合
+    puts "nearly"
+  else
+    puts "neither"
+  end
+end
