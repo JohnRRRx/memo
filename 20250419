@@ -1,0 +1,31 @@
+4/19
+
+スキルチェック
+Cランク　1問
+
+-------------------------------------------
+
+カード集め
+
+・複数種類のカードがある
+・全種類コンプリートしたいために、複数回カードを引く
+・全種類が揃った時点で何回目の引きかを出力、揃わない場合unluckyと出力
+
+-------------------------------------------
+
+bought, kinds = gets.split.map(&:to_i)                            # 購入枚数、カード種類数を取得
+cards = bought.times.map{gets.to_i}                               # 購入枚数の分、パッケージ開けていく
+all = (1..kinds).to_a                                             # カードの全種類を羅列
+collected = []                                                    # 引いた種類を記録
+
+cards.each_with_index do |c,idx|                                  # カード1枚ずつ確認していく
+  idx += 1                                                        # 何枚目か、の順番付けて確認していく
+  collected << c                                                  # まず引いた種類を記録
+ 
+  if all - collected == []                                        # 全種類揃った場合
+    puts idx                                                      # 揃った時点の枚数を出力
+    break                                                         # 処理を中止
+  end
+end
+
+puts all - collected != [] ? "unlucky" : ""                       # 揃わない場合、unluckyと出力
